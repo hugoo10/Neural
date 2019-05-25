@@ -23,7 +23,7 @@ public class Main {
 
         List<INeuralNetwork> addNetwordList = new ArrayList<>();
         List<Thread> threads = new ArrayList<>();
-        for(int i =0; i<nbNN; ++i) {
+        for (int i = 0; i < nbNN; ++i) {
             INeuralNetwork nn = builder.build();
             addNetwordList.add(nn);
         }
@@ -34,7 +34,7 @@ public class Main {
         double[] inf;
         double resf;
         do {
-            double[] in = new double[] {r1.nextInt(100),r1.nextInt(100)};
+            double[] in = new double[]{r1.nextInt(100), r1.nextInt(100)};
             inf = in;
             double res = in[0] + in[1];
             resf = res;
@@ -59,12 +59,12 @@ public class Main {
                             newNeurals.add(nn.copyAndApplyMutation(10));
                         }
                     })
-                 //   .filter(nn1 -> Math.abs(nn1.getResult()[0] - res) < 1D)
+                    //   .filter(nn1 -> Math.abs(nn1.getResult()[0] - res) < 1D)
                     .findFirst()
                     .ifPresent(INeuralNetwork::addWin);
             addNetwordList = newNeurals;
-             winner = addNetwordList.parallelStream().max(Comparator.comparingInt(INeuralNetwork::getWins)).get();
-        }while(winner.getWins() < 10);
+            winner = addNetwordList.parallelStream().max(Comparator.comparingInt(INeuralNetwork::getWins)).get();
+        } while (winner.getWins() < 10);
 
         System.out.println(winner.getResult()[0] + " -- " + inf[0] + " + " + inf[1] + " = " + resf);
     }
